@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de compras</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>LISTA DE COMPRA</h1>
+        <input type="text" id="item" placeholder="Digite um item">
+        <div class="categorias">
+            <button onclick="addItem('fru')">FRUTAS</button>
+            <button onclick="addItem('lat')">LATICÍNIOS</button>
+            <button onclick="addItem('frio')">FRIOS</button>
+            <button onclick="addItem('outros')">OUTROS</button>
+        </div>
+        <div class="resultado">
+            <div class="categoria" id="fruta"><strong>Frutas</strong></div>
+            <div class="categoria" id="laticinio"><strong>Laticínios</strong></div>
+            <div class="categoria" id="frio"><strong>Frios</strong></div>
+            <div class="categoria" id="outros"><strong>Outros</strong></div>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
+<!-- 7 Days to Code -->
