@@ -5,7 +5,6 @@ let lista = {
     frio: [],
     outros: []
 };
-
 //campos de texto
 let campo = document.querySelector('#item');
 let categorias = {
@@ -24,8 +23,9 @@ function limparCampo() {
 function addItem(botao) {
     let inputTexto = campo.value.trim();
 
-    //Pega todos os elementos da lista e transforma em um único array.
-    let todosItens = Object.values(categorias).flatMap(lista => Array.from(lista.children).map(li => li.textContent));
+    //Pega todos os elementos da lista e transforma em um único array. 
+    //li.firstChild.textContent pega apenas o texto do item (ignorando os botões).
+    let todosItens = Object.values(categorias).flatMap(lista => Array.from(lista.children).map(li => li.firstChild.textContent.trim()));
 
     if (inputTexto.length === 0) {
         alert('Por favor, insira um item.');
@@ -37,29 +37,29 @@ function addItem(botao) {
             case 'fru':
                 lista.fru.push(inputTexto);
                 let novoItemFru = document.createElement('p');
-                novoItemFru.textContent = inputTexto;
                 categorias.fru.appendChild(novoItemFru);
+                novoItemFru.innerHTML = `${inputTexto} <button onclick="verificarItem(this)">✅</button> <button onclick="removerItem(this)"> ❌</button>`;
                 limparCampo();
                 break;
             case 'lat': //linha de raciocinio:
                 lista.lat.push(inputTexto); //adiciona o que foi digitado à lista
                 let novoItemLat = document.createElement('p'); //cria um novo elemento PARAGRAFO
-                novoItemLat.textContent = inputTexto; //diz qual será o conteúdo do PARAGRAFO, que no caso vai ser o texto digitado no input
                 categorias.lat.appendChild(novoItemLat); //aonde vai ser adicionado (categoria LATICINIO) e qual será a nova adição, que no caso é o conteúdo do paragrafo
+                novoItemLat.innerHTML = `${inputTexto} <button onclick="verificarItem(this)">✅</button> <button onclick="removerItem(this)"> ❌</button>`;
                 limparCampo();
                 break;
             case 'frio':
                 lista.frio.push(inputTexto);
                 let novoItemFrio = document.createElement('p');
-                novoItemFrio.textContent = inputTexto;
                 categorias.frio.appendChild(novoItemFrio)
+                novoItemFrio.innerHTML = `${inputTexto} <button onclick="verificarItem(this)">✅</button> <button onclick="removerItem(this)"> ❌</button>`;
                 limparCampo();
                 break;
             case 'outros':
                 lista.outros.push(inputTexto);
                 let novoItemOutros = document.createElement('p');
-                novoItemOutros.textContent = inputTexto;
                 categorias.outros.appendChild(novoItemOutros);
+                novoItemOutros.innerHTML = `${inputTexto} <button onclick="verificarItem(this)">✅</button> <button onclick="removerItem(this)"> ❌</button>`;
                 limparCampo();
                 break;
             default:
@@ -70,9 +70,37 @@ function addItem(botao) {
     }
 }
 
-/*possiveis funcionalidades futuras:
-remover itens;
-marcar itens como já comprados ou algo do tipo;
-no input, sugerir os itens que já se encontram na lista para serem removidos ou marcados como comprados;
-ou arrumar uma forma de clicar em cima e removar, como uma lista, por exemplo.
-*/
+function verificarItem(botao) {
+    let itemParaVerificar = botao.parentElement;
+    itemParaVerificar.classList.toggle('verificado');
+    if (itemParaVerificar.classList.contains('verificado')) {
+        botao.textContent = '🔄';
+    } else {
+        botao.textContent = '✅';
+    }
+}
+
+function removerItem(botao) {
+    let itemParaRemover = botao.parentElement; //obtém o <p> que contém o item
+    let categoria = itemParaRemover.parentElement.id; //descobre em qual categoria o item está
+    let textoItem = itemParaRemover.textContent.replace(' ❌✅', '').trim(); //remove os botões antes de comparar
+
+    switch (categoria) {
+        case 'fruta':
+            lista.fru = lista.fru.filter(item => item !== textoItem);
+            break;
+        //.filter(item => item !== textoItem) → cria um novo array sem o item que quero remover.
+        //item representa cada elemento dentro do array.
+        //item !== textoItem mantém apenas os elementos diferentes de textoItem.
+        case 'laticinio':
+            lista.lat = lista.lat.filter(item => item !== textoItem);
+            break;
+        case 'frio':
+            lista.frio = lista.frio.filter(item => item !== textoItem);
+            break;
+        case 'outros':
+            lista.outros = lista.outros.filter(item => item !== textoItem);
+            break;
+    }
+    itemParaRemover.remove();
+}

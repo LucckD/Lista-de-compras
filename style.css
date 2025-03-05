@@ -65,3 +65,8 @@ body {
 #outros {
     background-color: #ebefff;
 }
+
+.verificado {
+    text-decoration: line-through;
+    opacity: 0.6;
+}
