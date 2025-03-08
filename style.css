@@ -69,4 +69,5 @@ body {
 .verificado {
     text-decoration: line-through;
     opacity: 0.6;
+    color: rgb(0, 88, 0);
 }
