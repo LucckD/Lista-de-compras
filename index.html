@@ -15,13 +15,16 @@
             <button onclick="addItem('lat')">LATICÍNIOS</button>
             <button onclick="addItem('frio')">FRIOS</button>
             <button onclick="addItem('outros')">OUTROS</button>
-            <button onclick="desfazer()">Desfazer</button>
         </div>
+        <button onclick="calculadora()" class="hidden" id="calculadora">CALCULADORA</button>
         <div class="resultado">
             <div class="categoria" id="fruta"><strong>Frutas</strong></div>
             <div class="categoria" id="laticinio"><strong>Laticínios</strong></div>
             <div class="categoria" id="frio"><strong>Frios</strong></div>
             <div class="categoria" id="outros"><strong>Outros</strong></div>
+        </div>
+        <div id="acoes">
+        <button onclick="desfazer()" class="hidden" id="desfazer">DESFAZER</button>
         </div>
     </div>
     <script src="app.js"></script>

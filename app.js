@@ -7,6 +7,8 @@ let lista = {
 };
 //campos de texto
 let campo = document.querySelector('#item');
+let desfazerBtn = document.querySelector('#desfazer');
+let historico = [];
 let categorias = {
     fru: document.querySelector('#fruta'),
     lat: document.querySelector('#laticinio'),
@@ -85,36 +87,60 @@ function removerItem(botao) {
     let categoria = itemParaRemover.parentElement.id; //descobre em qual categoria o item está
     let textoItem = itemParaRemover.textContent.replace(' ❌✅', '').trim(); //remove os botões antes de comparar
     let confirmacao = confirm('Deseja remover este item?');
-    
 
     switch (categoria) {
         case 'fruta':
-            lista.fru = lista.fru.filter(item => item !== textoItem);
+            itensRemovidos = lista.fru = lista.fru.filter(item => item !== textoItem);
+            //.filter(item => item !== textoItem) → cria um novo array sem o item que quero remover.
+            //item representa cada elemento dentro do array.
+            //item !== textoItem mantém apenas os elementos diferentes de textoItem.
             if (confirmacao === false) {
                 return;
             }
+            historico.push({ categoria: 'fru', item: textoItem });
+            //desfazerBtn.classList.remove('hidden');
             break;
-        //.filter(item => item !== textoItem) → cria um novo array sem o item que quero remover.
-        //item representa cada elemento dentro do array.
-        //item !== textoItem mantém apenas os elementos diferentes de textoItem.
+
         case 'laticinio':
-            lista.lat = lista.lat.filter(item => item !== textoItem);
+            itensRemovidos = lista.lat = lista.lat.filter(item => item !== textoItem);
             if (confirmacao === false) {
                 return;
             }
+            historico.push({ categoria: 'lat', item: textoItem });
+            //desfazerBtn.classList.remove('hidden');
             break;
         case 'frio':
-            lista.frio = lista.frio.filter(item => item !== textoItem);
+            itensRemovidos = lista.frio = lista.frio.filter(item => item !== textoItem);
             if (confirmacao === false) {
                 return;
             }
+            historico.push({ categoria: 'frio', item: textoItem });
+            //desfazerBtn.classList.remove('hidden');
             break;
         case 'outros':
             lista.outros = lista.outros.filter(item => item !== textoItem);
             if (confirmacao === false) {
                 return;
             }
+            historico.push({ categoria: 'outro', item: textoItem });
+            //desfazerBtn.classList.remove('hidden');
             break;
     }
     itemParaRemover.remove();
+    desfazerBtn.classList.remove('hidden');
+}
+
+
+function desfazer() {
+    let ultimoItem = historico.pop();
+    if (!ultimoItem) return; //se NÃO houver um ultimo item, irá parar a função.
+
+    let novoItem = document.createElement('p');
+    novoItem.innerHTML = `${ultimoItem.item} <button onclick="verificarItem(this)">✅</button> <button onclick="removerItem(this)"> ❌</button>`;
+    categorias[ultimoItem.categoria].appendChild(novoItem); //pega a categoria do item que foi removido e adiciona o item removido a ela novamente
+    lista[ultimoItem.categoria].push(ultimoItem.item); //adiciona o item de volta ao array
+
+    if (historico.length === 0) {
+        desfazerBtn.classList.add('hidden'); //desabilita o botao caso não haja mais nada a ser desfeito
+    }
 }

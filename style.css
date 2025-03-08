@@ -16,6 +16,7 @@ body {
     justify-content: center;
     gap: 10px;
     margin-top: 20px;
+    flex-wrap: wrap;
 }
 .categorias button {
     padding: 10px;
@@ -26,17 +27,18 @@ body {
     color: white;
 }
 .categorias button:nth-child(1) {
-    background-color: #ff6f61;
+    background-color: #E57373;
 }
 .categorias button:nth-child(2) {
-    background-color: #ffcc00;
+    background-color: #FFD54F;
 }
 .categorias button:nth-child(3) {
-    background-color: #66b2ff;
+    background-color: #64B5F6;
 }
 .categorias button:nth-child(4) {
-    background-color: #a8d1fa;
+    background-color: #C5CAE9;
 }
+
 .resultado {
     margin-top: 20px;
     display: flex;
@@ -53,6 +55,36 @@ body {
     padding: 10px;
     border-radius: 5px;
 }
+
+.acoes {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+}
+
+.hidden {
+    display: none;
+}
+
+#desfazer {
+    background-color: #ffcc80;
+    padding: 8px 15px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#calculadora {
+    position: absolute;
+    top: 20px;
+    right: 10%;
+    background-color: #90CAF9;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
 #fruta {
     background-color: #ffebeb;
 }
