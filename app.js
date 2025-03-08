@@ -84,22 +84,36 @@ function removerItem(botao) {
     let itemParaRemover = botao.parentElement; //obtém o <p> que contém o item
     let categoria = itemParaRemover.parentElement.id; //descobre em qual categoria o item está
     let textoItem = itemParaRemover.textContent.replace(' ❌✅', '').trim(); //remove os botões antes de comparar
+    let confirmacao = confirm('Deseja remover este item?');
+    
 
     switch (categoria) {
         case 'fruta':
             lista.fru = lista.fru.filter(item => item !== textoItem);
+            if (confirmacao === false) {
+                return;
+            }
             break;
         //.filter(item => item !== textoItem) → cria um novo array sem o item que quero remover.
         //item representa cada elemento dentro do array.
         //item !== textoItem mantém apenas os elementos diferentes de textoItem.
         case 'laticinio':
             lista.lat = lista.lat.filter(item => item !== textoItem);
+            if (confirmacao === false) {
+                return;
+            }
             break;
         case 'frio':
             lista.frio = lista.frio.filter(item => item !== textoItem);
+            if (confirmacao === false) {
+                return;
+            }
             break;
         case 'outros':
             lista.outros = lista.outros.filter(item => item !== textoItem);
+            if (confirmacao === false) {
+                return;
+            }
             break;
     }
     itemParaRemover.remove();
