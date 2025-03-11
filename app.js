@@ -31,7 +31,7 @@ function addItem(botao) {
 
     if (inputTexto.length === 0) {
         alert('Por favor, insira um item.');
-    } else if (todosItens.includes(inputTexto)) {
+    } else if (todosItens.includes(inputTexto.toLowerCase())) {
         alert('Este item já foi inserido.');
     } else {
         switch (botao) {
@@ -128,4 +128,8 @@ function desfazer() {
     novoItem.innerHTML = `${ultimoItem.item} <button onclick="verificarItem(this)">✅</button> <button onclick="removerItem(this)"> ❌</button>`;
     categorias[ultimoItem.categoria].appendChild(novoItem); //pega a categoria do item que foi removido e adiciona o item removido a ela novamente
     lista[ultimoItem.categoria].push(ultimoItem.item); //adiciona o item de volta ao array
+}
+
+function redirecionar() {
+    window.location.href = "./Calculadora/calculadora.html";
 }
