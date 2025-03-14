@@ -31,7 +31,7 @@ function addItem(botao) {
 
     if (inputTexto.length === 0) {
         alert('Por favor, insira um item.');
-    } else if (todosItens.includes(inputTexto.toLowerCase())) {
+    } else if (todosItens.includes(inputTexto.toLowerCase()) || todosItens.includes(inputTexto.toUpperCase())) {
         alert('Este item já foi inserido.');
     } else {
         switch (botao) {

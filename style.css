@@ -122,8 +122,6 @@ body {
 }
 
 #calculadora:hover {
-    animation-duration: 4s;
-    animation-name: slidein;
     margin-left: 10%;
     width: 10%;
 }
