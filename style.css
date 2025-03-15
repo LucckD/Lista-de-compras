@@ -118,7 +118,7 @@ body {
 #calculadora {
     margin-left: 15%;
     width: 15%;
-    transition: all 4s ease;
+    transition: all 1s ease;
 }
 
 #calculadora:hover {
