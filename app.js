@@ -5,6 +5,7 @@ let lista = {
     frio: [],
     outros: []
 };
+let quantidadeItens = 1;
 //campos de texto
 let campo = document.querySelector('#item');
 let desfazerBtn = document.querySelector('#desfazer');
@@ -34,42 +35,30 @@ function addItem(botao) {
     } else if (todosItens.includes(inputTexto.toLowerCase()) || todosItens.includes(inputTexto.toUpperCase())) {
         alert('Este item já foi inserido.');
     } else {
-        switch (botao) {
-            case 'fru':
-                lista.fru.push(inputTexto);
-                let novoItemFru = document.createElement('p');
-                categorias.fru.appendChild(novoItemFru);
-                novoItemFru.innerHTML = `${inputTexto} <button onclick="verificarItem(this)">✅</button> <button onclick="removerItem(this)"> ❌</button>`;
-                limparCampo();
-                break;
-            case 'lat': //linha de raciocinio:
-                lista.lat.push(inputTexto); //adiciona o que foi digitado à lista
-                let novoItemLat = document.createElement('p'); //cria um novo elemento PARAGRAFO
-                categorias.lat.appendChild(novoItemLat); //aonde vai ser adicionado (categoria LATICINIO) e qual será a nova adição, que no caso é o conteúdo do paragrafo
-                novoItemLat.innerHTML = `${inputTexto} <button onclick="verificarItem(this)">✅</button> <button onclick="removerItem(this)"> ❌</button>`;
-                limparCampo();
-                break;
-            case 'frio':
-                lista.frio.push(inputTexto);
-                let novoItemFrio = document.createElement('p');
-                categorias.frio.appendChild(novoItemFrio)
-                novoItemFrio.innerHTML = `${inputTexto} <button onclick="verificarItem(this)">✅</button> <button onclick="removerItem(this)"> ❌</button>`;
-                limparCampo();
-                break;
-            case 'outros':
-                lista.outros.push(inputTexto);
-                let novoItemOutros = document.createElement('p');
-                categorias.outros.appendChild(novoItemOutros);
-                novoItemOutros.innerHTML = `${inputTexto} <button onclick="verificarItem(this)">✅</button> <button onclick="removerItem(this)"> ❌</button>`;
-                limparCampo();
-                break;
-            default:
-                //sempre adicionar um default para evitar possiveis erros.
-                alert('Categoria não encontrada.');
-                break;
+        if (!lista[botao] || !categorias[botao]) {
+            alert('Categoria não encontrada.');
+            return;
         }
+
+        lista[botao].push(inputTexto); //puxa o botao que foi apertado [botao];
+        let novoItem = document.createElement('p');
+        categorias[botao].appendChild(novoItem);
+
+        //let botoesExtras = botao === 'fru' ? `<button onclick="maisItens()">➕</button> ${quantidadeItens}x ` : '';
+
+        novoItem.innerHTML = `${inputTexto}
+            <button onclick="verificarItem(this)">✅</button> 
+            <button onclick="removerItem(this)"> ❌</button>`;
+        limparCampo() //${botoesExtras}
     }
-    limparCampo();
+}
+
+function maisItens() {
+
+}
+
+function menosItens() {
+
 }
 
 function verificarItem(botao) {
