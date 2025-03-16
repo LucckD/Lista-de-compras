@@ -3,7 +3,6 @@ let historico = [];
 let historicoTexto = document.getElementById('historico-lista');
 let ultimoNumero; //pega o último número do histórico
 let valorTela;  //pega o valor digitado na tela
-let itemHistorico;
 
 function atualizarDisplay() {
     document.getElementById('tela').value = display; //atualiza a tela
@@ -33,7 +32,13 @@ function calcular() {
         display = "Insira algum número";
     } else {
         try {
-            let resultado = eval(display);
+            let corrigirCalculo = display.replace(/\./g, '').replace(/,/g, '.')
+            //o /\./ remove todos os pontos separadores de milhar
+            //a /,/ busca todas as ocorrências da vírgula dentro da string
+            //o g significa que a substituição deve ser global então vai substituir todas as vírgulas encontradas//
+            let resultado = new Function('return ' + corrigirCalculo)();
+            //a função retorna o resultado da expressão armazenada em display
+            resultado = Number(resultado.toFixed(10)); //corrige erros de precisão
             display = resultado.toString(); //converte o resultado para string para evitar erros ao adicionar novos valores no display
             historico.push(display);
             ultimoNumero = historico[historico.length - 1];
